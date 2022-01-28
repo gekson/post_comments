@@ -1,0 +1,47 @@
+version: '3.4'
+
+services:
+  web:
+    container_name: post_comment_web
+    restart: always
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/code
+      - ./host.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - php:php
+    env_file:
+      - ./.env
+
+  php:
+    env_file:
+      - ./.env
+    container_name: post_comment_php
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./docker/php/Dockerfile
+    volumes:
+      - ./:/code
+    links:
+      - database
+      - redis
+
+  database:
+    container_name: post_comment_database
+    image: postgres:12.4
+    ports:
+      - 5433:5433
+    restart: always
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: docker
+      PGDATA: /var/lib/postgresql/data/pgdata
+
+  redis:
+    container_name: redis_admin
+    image: redis:latest
