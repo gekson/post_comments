@@ -19,4 +19,5 @@ Route::get('/', function () {
 });
 
 Route::get("/users", [UsersController::class, "get"]);
+
 require __DIR__.'/auth.php';

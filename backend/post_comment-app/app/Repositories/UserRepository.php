@@ -79,8 +79,7 @@ class UserRepository extends RepositoryApiEloquent
 
 		$user = $this->getModel()
 			->where([
-				'email' => $data['email'],
-				'active' => true,
+				'email' => $data['email']
 			])
 			->first();
 
@@ -89,13 +88,6 @@ class UserRepository extends RepositoryApiEloquent
 			self::setResponseCode(400);
 			return "No user found with this credentials.";
 		}
-
-		if (!$user->active) {
-			self::setStatusResponse(400);
-			self::setResponseCode(400);
-			return "Please provide valid credentials.";
-		}
-
 
 		if (password_verify($data['password'], $user->password)) {
             return [
