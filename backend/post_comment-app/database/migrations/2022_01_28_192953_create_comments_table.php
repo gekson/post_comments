@@ -28,7 +28,6 @@ class CreateCommentsTable extends Migration
                     ->on('posts')
                     ->onDelete('CASCADE')
                     ->onUpdate('CASCADE');
-                $table->string('title', 100);
                 $table->string('description');
                 $table->timestamps();
                 $table->softDeletes();

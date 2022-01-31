@@ -479,12 +479,12 @@ abstract class RepositoryEloquent
 	 * @return mixed
 	 * @throws Exception
 	 */
-	public function delete($id)
+	public function delete($id, $validateUser = true)
 	{
 		$obj = $this->find($id);
 
 		if (!is_array($obj)) {
-            if($this->obj->user_id !== Auth::user()->getAuthIdentifier()) {
+            if($validateUser && $this->obj->user_id !== Auth::user()->getAuthIdentifier()) {
                 self::setResponseCode(401);
                 return [
                     "code" => 404,

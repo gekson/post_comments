@@ -23,7 +23,6 @@ Route::get("/users", [UsersController::class, "get"]);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/me', function(Request $request) {
-        info(Auth::user());
         return auth()->user();
     });
 });

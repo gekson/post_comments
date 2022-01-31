@@ -2,30 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\PostRepository;
+use App\Repositories\CommentRepository;
 
-class PostController extends ResourceApiController
+class CommentController extends ResourceApiController
 {
     /**
-     * @param PostRepository $repository
+     * @param CommentRepository $repository
      */
-    public function __construct(PostRepository $repository)
+    public function __construct(CommentRepository $repository)
     {
         $this->setRepository($repository);
     }
 
     protected function getKeyIdentifier(): string
     {
-        return "posts";
+        return "comments";
     }
 
     protected function getSingularIdentifier(): string
     {
-        return "post";
+        return "comment";
     }
 
     protected function getPluralIdentifier(): string
     {
-        return "posts";
+        return "comments";
     }
 }
