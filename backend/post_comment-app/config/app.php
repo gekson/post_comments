@@ -177,6 +177,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // default laravel audit provider.
+        OwenIt\Auditing\AuditingServiceProvider::class,
+
     ],
 
     /*
