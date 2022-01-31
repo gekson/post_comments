@@ -8,6 +8,7 @@ use App\Traits\ResourceAPITrait;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Throwable;
 
 /**
@@ -80,6 +81,10 @@ abstract class ResourceApiController extends Controller
 	 */
 	public function create(Request $request): JsonResponse
 	{
+        if (!Auth::user()) {
+            return $this->defaultNotLoggedResponse();
+        }
+
 		if (!$request->input($this->getKeyIdentifier())) {
 			return $this->defaultKeyIdentifierError();
 		}
@@ -172,6 +177,10 @@ abstract class ResourceApiController extends Controller
 	 */
 	public function update(Request $request, mixed $id): JsonResponse
 	{
+        if (!Auth::user()) {
+            return $this->defaultNotLoggedResponse();
+        }
+
 		if (empty($id)) {
 			return $this->defaultKeyIdentifierError();
 		}

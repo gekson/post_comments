@@ -16,6 +16,7 @@ use Illuminate\Container\Container as App;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Throwable;
@@ -403,10 +404,17 @@ abstract class RepositoryEloquent
 	{
 		$this->obj = $this->find($id, true);
 
-
 		$save_data = false;
 
 		if (!empty($this->obj)) {
+            if($this->obj->user_id !== Auth::user()->getAuthIdentifier()) {
+                self::setResponseCode(401);
+                return [
+                    "code" => 404,
+                    "message" => "This users can't update this record.",
+                ];
+            }
+
 			self::setResponseCode(200);
 			DB::beginTransaction();
 			try {
@@ -424,7 +432,11 @@ abstract class RepositoryEloquent
 		}
 
 		if (!$save_data) {
-			self::setResponseCode(400);
+			self::setResponseCode(404);
+            return [
+                "code" => 404,
+                "message" => "Record not found.",
+            ];
 		}
 
 		return $save_data;
@@ -472,6 +484,14 @@ abstract class RepositoryEloquent
 		$obj = $this->find($id);
 
 		if (!is_array($obj)) {
+            if($this->obj->user_id !== Auth::user()->getAuthIdentifier()) {
+                self::setResponseCode(401);
+                return [
+                    "code" => 404,
+                    "message" => "This users can't delete this record.",
+                ];
+            }
+
 			DB::beginTransaction();
 			try {
 				if ($obj->active) {
@@ -489,7 +509,13 @@ abstract class RepositoryEloquent
 
 				return false;
 			}
-		}
+		} else {
+            self::setResponseCode(404);
+            return [
+                "code" => 404,
+                "message" => "Record not found.",
+            ];
+        }
 
 		return true;
 	}

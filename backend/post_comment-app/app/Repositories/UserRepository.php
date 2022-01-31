@@ -23,8 +23,6 @@ class UserRepository extends RepositoryApiEloquent
      */
     public function register(array $data = []): bool|array|string
     {
-        info('REGISTER');
-        info($data);
         $validate = Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -49,7 +47,11 @@ class UserRepository extends RepositoryApiEloquent
 
         Auth::login($user);
 
-        return response()->noContent();
+        return [
+            "success" => true,
+            "data" => $user,
+            "token" => $user->createToken('API Token')->plainTextToken,
+        ];
     }
 
 	/**
@@ -92,7 +94,7 @@ class UserRepository extends RepositoryApiEloquent
 		if (password_verify($data['password'], $user->password)) {
             return [
                 "success" => true,
-                "token" => auth("admin")->login($user),
+                "token" => auth("web")->login($user),
             ];
 		}
 

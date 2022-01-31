@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UsersController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,5 +20,12 @@ Route::get('/', function () {
 });
 
 Route::get("/users", [UsersController::class, "get"]);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/me', function(Request $request) {
+        info(Auth::user());
+        return auth()->user();
+    });
+});
 
 require __DIR__.'/auth.php';

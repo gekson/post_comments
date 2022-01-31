@@ -18,6 +18,22 @@ class RegisteredUserController extends ResourceApiController
         $this->setRepository($repository);
     }
 
+    protected function getKeyIdentifier(): string
+    {
+        return "users";
+    }
+
+    protected function getSingularIdentifier(): string
+    {
+        return "User";
+    }
+
+    protected function getPluralIdentifier()
+    {
+        return "Users";
+    }
+
+
     /**
      * Handle an incoming registration request.
      *
@@ -39,20 +55,5 @@ class RegisteredUserController extends ResourceApiController
         } catch (Exception $exception) {
             return $this->logError($exception, "Something went wrong", $exception->getCode() ?? 500);
         }
-    }
-
-    protected function getKeyIdentifier(): string
-    {
-        return "users";
-    }
-
-    protected function getSingularIdentifier(): string
-    {
-        return "User";
-    }
-
-    protected function getPluralIdentifier()
-    {
-        return "Users";
     }
 }
