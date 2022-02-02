@@ -92,9 +92,12 @@ class UserRepository extends RepositoryApiEloquent
 		}
 
 		if (password_verify($data['password'], $user->password)) {
+
+            auth("web")->login($user);
             return [
                 "success" => true,
-                "token" => auth("web")->login($user),
+                "data" => auth()->user(),
+                "token" => auth()->user()->createToken('API Token')->plainTextToken
             ];
 		}
 

@@ -11,6 +11,7 @@ class Post extends Base
         'user_id',
         'title',
         'description',
+        'views'
     ];
 
     /**

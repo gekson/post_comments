@@ -14,3 +14,9 @@ Route::group([
     Route::delete('/delete/{id}', [PostController::class, 'delete']);
 });
 
+Route::group([
+    'prefix' => "/",
+    "namespace" => "Post"
+], function () {
+    Route::get('/find/{id}', [PostController::class, 'find']);
+});

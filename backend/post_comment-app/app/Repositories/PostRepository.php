@@ -51,4 +51,24 @@ class PostRepository extends RepositoryApiEloquent
 
         return Post::create($data);
     }
+
+    /**
+     * @param $id
+     * @return array|mixed
+     */
+    public function find($id)
+    {
+        $post = Post::find($id);
+
+        if(Auth::user() && $post->user_id === Auth::user()->getAuthIdentifier()) {
+            return parent::find($id);
+        }
+
+        $post->views++;
+        $post->save();
+
+        return parent::find($id);
+    }
+
+
 }

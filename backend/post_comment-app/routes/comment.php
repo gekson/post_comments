@@ -14,3 +14,10 @@ Route::group([
     Route::delete('/delete/{id}', [CommentController::class, 'delete']);
 });
 
+Route::group([
+    'prefix' => "/",
+    "namespace" => "Comment"
+], function () {
+    Route::get('/find/{id}', [CommentController::class, 'find']);
+});
+
