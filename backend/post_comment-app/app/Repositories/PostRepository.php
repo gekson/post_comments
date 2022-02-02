@@ -37,6 +37,7 @@ class PostRepository extends RepositoryApiEloquent
         $validate = Validator::make($data, [
             'title' => ['required', 'string', 'max:100'],
             'description' => ['required', 'string'],
+//            'image' => ['mimes:jpeg,png']
         ]);
 
         if ($validate->fails()) {
@@ -70,5 +71,40 @@ class PostRepository extends RepositoryApiEloquent
         return parent::find($id);
     }
 
+    /**
+     * @param $id
+     * @return array|mixed
+     */
+    public function like($id)
+    {
+        $post = Post::find($id);
+
+        if(Auth::user() && $post->user_id === Auth::user()->getAuthIdentifier()) {
+            return $post;
+        }
+
+        $post->like++;
+        $post->save();
+
+        return $post;
+    }
+
+    /**
+     * @param $id
+     * @return array|mixed
+     */
+    public function dislike($id)
+    {
+        $post = Post::find($id);
+
+        if(Auth::user() && $post->user_id === Auth::user()->getAuthIdentifier()) {
+            return $post;
+        }
+
+        $post->dislike++;
+        $post->save();
+
+        return $post;
+    }
 
 }

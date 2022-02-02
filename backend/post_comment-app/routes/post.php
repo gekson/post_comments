@@ -19,4 +19,6 @@ Route::group([
     "namespace" => "Post"
 ], function () {
     Route::get('/find/{id}', [PostController::class, 'find']);
+    Route::get('/like/{id}', [PostController::class, 'like']);
+    Route::get('/dislike/{id}', [PostController::class, 'dislike']);
 });

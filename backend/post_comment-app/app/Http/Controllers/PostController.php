@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Repositories\PostRepository;
+use Illuminate\Http\JsonResponse;
+use PHPUnit\Exception;
 
 class PostController extends ResourceApiController
 {
@@ -27,5 +30,31 @@ class PostController extends ResourceApiController
     protected function getPluralIdentifier(): string
     {
         return "posts";
+    }
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function like($id): JsonResponse
+    {
+        try {
+            return $this->defaultJSONResponse($this, $this->getRepository()->like($id));
+        } catch (Exception $exception) {
+            return $this->logError($exception);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function dislike($id): JsonResponse
+    {
+        try {
+            return $this->defaultJSONResponse($this, $this->getRepository()->dislike($id));
+        } catch (Exception $exception) {
+            return $this->logError($exception);
+        }
     }
 }
