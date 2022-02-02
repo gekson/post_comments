@@ -10,7 +10,6 @@ Route::group([
 ], function () {
     Route::post('/add', [CommentController::class, 'create']);
     Route::put('/update/{id}', [CommentController::class, 'update']);
-    Route::get('/get', [CommentController::class, 'get']);
     Route::delete('/delete/{id}', [CommentController::class, 'delete']);
 });
 
@@ -18,6 +17,7 @@ Route::group([
     'prefix' => "/",
     "namespace" => "Comment"
 ], function () {
+    Route::get('/get', [CommentController::class, 'get']);
     Route::get('/find/{id}', [CommentController::class, 'find']);
 });
 

@@ -10,7 +10,6 @@ Route::group([
 ], function () {
     Route::post('/add', [PostController::class, 'create']);
     Route::put('/update/{id}', [PostController::class, 'update']);
-    Route::get('/get', [PostController::class, 'get']);
     Route::delete('/delete/{id}', [PostController::class, 'delete']);
 });
 
@@ -18,6 +17,7 @@ Route::group([
     'prefix' => "/",
     "namespace" => "Post"
 ], function () {
+    Route::get('/get', [PostController::class, 'get']);
     Route::get('/find/{id}', [PostController::class, 'find']);
     Route::get('/like/{id}', [PostController::class, 'like']);
     Route::get('/dislike/{id}', [PostController::class, 'dislike']);
