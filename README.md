@@ -15,6 +15,8 @@ Entre na pasta /backend/post_comment-app e execute os comandos:
     docker-compose up -d --build
     docker-compose run --rm php php artisan migrate
     docker-compose run --rm php php artisan db:seed
+### Endpoints
+Para testar os endpoints e verificar os objestos Json a serem transitados, verificar o arquivo do Insomnia que se encontra /backend/post_comment-app/Insomnia-All_2022-02-07.json
 
 ## Front
 Entre na pasta /frontend e execute os comandos:
