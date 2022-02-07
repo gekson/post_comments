@@ -77,7 +77,12 @@ class CommentRepository extends RepositoryApiEloquent
             ];
         }
 
-        if($comment->post_id !== $data['post_id']) {
+        $post_id = $data['post_id'];
+        if (is_string($post_id)) {
+            $post_id = (int)$post_id;
+        }
+
+        if($comment->post_id !== $post_id) {
             self::setResponseCode(400);
             self::setStatusResponse(400);
 

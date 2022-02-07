@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Repositories\PostRepository;
 use Illuminate\Http\JsonResponse;
 use PHPUnit\Exception;
@@ -30,6 +29,19 @@ class PostController extends ResourceApiController
     protected function getPluralIdentifier(): string
     {
         return "posts";
+    }
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function show($id): JsonResponse
+    {
+        try {
+            return $this->defaultJSONResponse($this, $this->getRepository()->show($id));
+        } catch (Exception $exception) {
+            return $this->logError($exception);
+        }
     }
 
     /**

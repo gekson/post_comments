@@ -55,13 +55,13 @@ class PostRepository extends RepositoryApiEloquent
 
     /**
      * @param $id
-     * @return array|mixed
+     * @return mixed
      */
-    public function find($id)
+    public function show($id): mixed
     {
         $post = Post::find($id);
 
-        if(Auth::user() && $post->user_id === Auth::user()->getAuthIdentifier()) {
+        if(Auth::user() && $post?->user_id === Auth::user()->getAuthIdentifier()) {
             return parent::find($id);
         }
 
@@ -106,5 +106,23 @@ class PostRepository extends RepositoryApiEloquent
 
         return $post;
     }
+
+    /**
+     * @param array $relationships
+     * @param array $where
+     * @return mixed
+     */
+    public function getWithRelationships(array $relationships = [], array $where = []): mixed
+    {
+        $relationships = ['user', 'comments'];
+        return parent::getWithRelationships($relationships, $where);
+    }
+
+    public function findWithRelationship($id, array $relationships = []): mixed
+    {
+        $relationships = ['user', 'comments'];
+        return parent::findWithRelationship($id, $relationships);
+    }
+
 
 }

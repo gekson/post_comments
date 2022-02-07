@@ -8,17 +8,18 @@ Route::group([
     "namespace" => "Post",
     'middleware' => ['auth:sanctum']
 ], function () {
-    Route::post('/add', [PostController::class, 'create']);
-    Route::put('/update/{id}', [PostController::class, 'update']);
-    Route::delete('/delete/{id}', [PostController::class, 'delete']);
+    Route::post('/', [PostController::class, 'create']);
+    Route::put('/{id}', [PostController::class, 'update']);
+    Route::delete('/{id}', [PostController::class, 'delete']);
 });
 
 Route::group([
     'prefix' => "/",
     "namespace" => "Post"
 ], function () {
-    Route::get('/get', [PostController::class, 'get']);
-    Route::get('/find/{id}', [PostController::class, 'find']);
+    Route::get('/', [PostController::class, 'getWithRelationships']);
+    Route::get('/find/{id}', [PostController::class, 'show']);
+    Route::get('/findWithRelationship/{id}', [PostController::class, 'findWithRelationships']);
     Route::get('/like/{id}', [PostController::class, 'like']);
     Route::get('/dislike/{id}', [PostController::class, 'dislike']);
 });

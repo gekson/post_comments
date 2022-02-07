@@ -1,0 +1,10 @@
+.delete-button {
+	color: red !important;
+	height: 50px;
+	width: 50px;
+	&:hover, &:focus {
+		color: rgba(red, 0.7) !important;
+		border: 1px solid orange;
+		border-radius: 150px;
+	}
+}

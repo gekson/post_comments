@@ -147,7 +147,6 @@ abstract class ResourceApiController extends Controller
 	 */
 	public function get(): JsonResponse
 	{
-        info('GETTTTT');
 		try {
 			return $this->defaultJSONResponse(
 				$this,

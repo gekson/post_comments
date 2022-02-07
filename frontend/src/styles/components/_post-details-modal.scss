@@ -1,0 +1,30 @@
+.post-detail-modal-container {
+
+	.MuiBackdrop-root {
+		opacity: 1 !important;
+	}
+
+	#post-details-body-wrapper {
+		background-color: white;
+		padding: 15px;
+
+		@media (min-width: 769px) {
+			background-color: white;
+			position: absolute;
+			left: 50%;
+			transform: translate(-50%, 10%);
+		}
+
+		.post-details-header-container, .post-details-footer-container {
+			min-height: 50px;
+			.post-title {
+				width: 100%;
+			}
+		}
+
+		textarea {
+			resize: none;
+			width: 100%;
+		}
+	}
+}

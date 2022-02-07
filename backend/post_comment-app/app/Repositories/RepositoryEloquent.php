@@ -407,6 +407,7 @@ abstract class RepositoryEloquent
 		$save_data = false;
 
 		if (!empty($this->obj)) {
+
             if($this->obj->user_id !== Auth::user()->getAuthIdentifier()) {
                 self::setResponseCode(401);
                 return [
